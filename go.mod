@@ -1,4 +1,4 @@
-module go-server
+module Gin_PlayGround
 
 go 1.23
 

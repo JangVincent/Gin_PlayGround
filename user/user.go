@@ -1,8 +1,8 @@
 package user
 
 import (
+	"Gin_PlayGround/post"
 	"fmt"
-	"go-server/post"
 
 	"gorm.io/gorm"
 )

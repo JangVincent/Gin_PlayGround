@@ -1,8 +1,9 @@
 package main
 
 import (
-	"go-server/post"
-	"go-server/user"
+	"Gin_PlayGround/post"
+	"Gin_PlayGround/user"
+	"fmt"
 
 	"log"
 	"os"
@@ -14,6 +15,7 @@ import (
 )
 
 func main() {
+	fmt.Println("Hello, Gin!")
 	err := godotenv.Load()
 	if err != nil {
 		log.Println(".env 파일을 찾을 수 없거나 로드할 수 없습니다.")
