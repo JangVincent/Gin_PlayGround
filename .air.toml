@@ -1,52 +1,61 @@
+# Air 설정 파일
+# 문서: https://github.com/air-verse/air
+
 root = "."
-testdata_dir = "testdata"
-tmp_dir = ".air"
+tmp_dir = "tmp"
 
 [build]
-  args_bin = []
-  bin = "./.air/main"
-  cmd = "go build -o ./.air/main ."
-  delay = 1000
-  exclude_dir = ["assets", ".air", "vendor", "testdata"]
-  exclude_file = []
-  exclude_regex = ["_test.go"]
-  exclude_unchanged = false
-  follow_symlink = false
-  full_bin = ""
-  include_dir = []
-  include_ext = ["go", "tpl", "tmpl", "html"]
-  include_file = [".env", ".air.toml"]
-  kill_delay = "0s"
-  log = "build-errors.log"
-  poll = false
-  poll_interval = 0
-  post_cmd = []
-  pre_cmd = ["rm -rf ./.air"]
-  rerun = false
-  rerun_delay = 500
-  send_interrupt = false
-  stop_on_error = true
+# 빌드 명령어
+cmd = "go build -o ./tmp/main ./cmd/server/main.go"
+# 실행 바이너리
+bin = "./tmp/main"
+# 파일 변경 감지 시 빌드 전 실행할 명령어 (선택)
+pre_cmd = []
+# 빌드 후 실행할 명령어 (선택)
+post_cmd = []
+# 빌드 전 딜레이 (ms) - 연속 저장 시 너무 많은 빌드 방지
+delay = 1000
+# 빌드 에러 무시
+stop_on_error = true
+# stderr 로그 전송
+send_interrupt = false
+# 프로세스 종료 딜레이
+kill_delay = 500
 
-[color]
-  app = ""
-  build = "yellow"
-  main = "magenta"
-  runner = "green"
-  watcher = "cyan"
+# 감시할 디렉토리
+include_dir = [
+  "cmd",
+  "internal",
+  "database"
+]
+# 감시할 파일 확장자
+include_ext = ["go", "tpl", "tmpl", "html", "sql"]
+# 제외할 디렉토리
+exclude_dir = ["assets", "tmp", "vendor", "node_modules", "bin"]
+# 제외할 파일
+exclude_file = []
+# 정규식으로 제외할 파일
+exclude_regex = ["_test\\.go"]
+# 숨김 디렉토리 제외
+exclude_unchanged = true
+# 심볼릭 링크 디렉토리 따라가기
+follow_symlink = false
 
+# 로그 설정
 [log]
-  main_only = false
-  silent = false
-  time = true
+# 시간 표시
+time = true
+# 메인 로그만 표시
+main_only = false
 
+# 색상 설정
+[color]
+main = "magenta"
+watcher = "cyan"
+build = "yellow"
+runner = "green"
+
+# 기타 설정
 [misc]
-  clean_on_exit = false
-
-[proxy]
-  app_port = 0
-  enabled = false
-  proxy_port = 0
-
-[screen]
-  clear_on_rebuild = false
-  keep_scroll = true
+# 종료 시 tmp 디렉토리 삭제
+clean_on_exit = true

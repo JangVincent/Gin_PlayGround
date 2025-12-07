@@ -1,7 +1,7 @@
 include .env
 export
 
-.PHONY: migrate-up migrate-down migrate-create migrate-force migrate-version sqlc-generate dev build clean
+.PHONY: migrate-up migrate-down migrate-create migrate-force migrate-version sqlc-generate dev build clean air
 
 migrate-up:
 	migrate -database "$(DATABASE_URL)" -path database/migrations up
@@ -24,7 +24,8 @@ db-gen:
 	sqlc generate
 
 dev:
-	go run cmd/server/main.go
+	# go run cmd/server/main.go
+	air
 
 build:
 	go build -o bin/server cmd/server/main.go
