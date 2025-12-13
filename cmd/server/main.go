@@ -55,7 +55,7 @@ func main() {
 	// API route setting
 	user.SetupRoutes(r, queries)
 
-	// 서버 시작
+	// Start Server
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
