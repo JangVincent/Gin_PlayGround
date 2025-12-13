@@ -15,12 +15,12 @@ import (
 )
 
 func main() {
-	// .env 로드
+	// .env load
 	if err := godotenv.Load(); err != nil {
 		log.Println("Warning: .env file not found")
 	}
 
-	// DB 연결
+	// DB connection
 	dbURL := os.Getenv("DATABASE_URL")
 	if dbURL == "" {
 		log.Fatal("DATABASE_URL is not set")
@@ -32,17 +32,17 @@ func main() {
 	}
 	defer conn.Close()
 
-	// 연결 테스트
+	// Test DB connection
 	ctx := context.Background()
 	if err := conn.PingContext(ctx); err != nil {
 		log.Fatal("Failed to ping database:", err)
 	}
 	log.Println("✓ Database connected successfully")
 
-	// sqlc queries 초기화
+	// sqlc queries initialization
 	queries := db.New(conn)
 
-	// Gin 설정
+	// Gin setting
 	if os.Getenv("GIN_MODE") == "release" {
 		gin.SetMode(gin.ReleaseMode)
 	}
@@ -52,7 +52,7 @@ func main() {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
 
-	// API 라우트 설정
+	// API route setting
 	user.SetupRoutes(r, queries)
 
 	// 서버 시작
